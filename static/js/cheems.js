@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
         img.addEventListener("click", () => {
             if (id==randomNumber) {
                 img.src = window.IMG_BAD;
-                //alert("Perdiste")
+                alert("Perdiste")
             } else {
                 img.src = window.IMG_OK;
                 //alert("Ganaste")
