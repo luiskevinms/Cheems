@@ -7,19 +7,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const imagenes = document.querySelectorAll(".cheems-card img");
 
+    const clickCards = new Set();
+
     imagenes.forEach((img, index) => {
         const id = index +1;
         img.dataset.id = index +1;
 
         img.addEventListener("click", () => {
+        
+        if(!clickCards.has(id)){
+        clickCards.add(id);
+
+
             if (id==randomNumber) {
+                imagenes.forEach((img2, index2) => {
+                    img2.src = window.IMG_OK; 
+                })
                 img.src = window.IMG_BAD;
-                alert("Perdiste")
+                //alert("Perdiste")
+
+
             } else {
                 img.src = window.IMG_OK;
-                //alert("Ganaste")
+
+                if(clickCards.size === 14){
+                    const modal = new bootstrap.Modal(document.getElementById("modal-winner"));
+                    modal.show();      
+                    //alert("Ya ganaste el juego")
+                }
+                
             }
+        }
         });
+
+    
 
     })
 
