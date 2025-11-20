@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => { 
 
+    document.getElementById("btn-save").addEventListener("click", saveWinner);
+    
     const randomNumber = Math.floor(Math.random() *14) + 1;
 
     // TODO: Eliminar antes de publicar el juego
@@ -44,5 +46,47 @@ document.addEventListener("DOMContentLoaded", () => {
 
     })
 
+
+    function saveWinner() {
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+
+        //El operador || significa "or"
+        if (!name || !email) {
+            alert("Por favor completa todos los campos");
+            return;
+        }
+
+        fetch("/winner", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name: name, 
+                email: email
+            })
+
+        })
+        //Entonces recibe la promesa de la llamada para saber si se cumplió o no la llamada
+        .then(response => {
+            if (response.ok){
+                return response.json()
+            }else {
+                return Promise.reject();
+            }
+        })
+        .then(result => {
+            if (result.success){
+                alert("El registro fue guardado correctamente")
+            }else{
+                alert("No se pudo guardar. Intenta más tarde")
+            }
+        })
+        .catch (error => {
+            console.error("Error: ", error);
+            alert ("Error en la conexión")
+        })
+    }
 
 });
