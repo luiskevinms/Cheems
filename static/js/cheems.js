@@ -50,9 +50,10 @@ document.addEventListener("DOMContentLoaded", () => {
     function saveWinner() {
         const name = document.getElementById("name").value.trim();
         const email = document.getElementById("email").value.trim();
+        const phrase = document.getElementById("phrase").value.trim();
 
         //El operador || significa "or"
-        if (!name || !email) {
+        if (!name || !email || !phrase) {
             alert("Por favor completa todos los campos");
             return;
         }
@@ -64,7 +65,8 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             body: JSON.stringify({
                 name: name, 
-                email: email
+                email: email,
+                phrase: phrase
             })
 
         })

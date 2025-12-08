@@ -13,7 +13,7 @@ def index():
 def save_winner():
     data = request.get_json()
 
-    winner = Winner(id=0, name=data['name'], email=data['email'],)
+    winner = Winner(id=0, name=data['name'], email=data['email'], phrase=data['phrase'])
 
     winner.save()
 
@@ -21,6 +21,10 @@ def save_winner():
         return jsonify({"success": True, "id": winner.id}), 201
     else:
         return jsonify({"success": False}), 500
+
+@app.route('/winners', methods=['GET'])
+def get_winners():
+    return render_template('winners.html', winner = Winner.get_all())
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=5000)
